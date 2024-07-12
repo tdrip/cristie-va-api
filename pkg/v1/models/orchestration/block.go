@@ -15,15 +15,15 @@ type BlockReportConfig struct {
 type Block struct {
 	Description      string                 `json:"description,omitempty"`
 	Finished         *time.Time             `json:"finished,omitempty"`
-	Id               int                    `json:"id,omitempty"`
+	Id               *int                   `json:"id"` // always required
 	JobId            int                    `json:"jobId,omitempty"`
 	Name             string                 `json:"name,omitempty"`
 	ReportConfig     *BlockReportConfig     `json:"reportConfig,omitempty"`
-	Reusable         bool                   `json:"reusable,omitempty"`
-	RunReport        bool                   `json:"runReport,omitempty"`
+	Reusable         bool                   `json:"reusable"` // always required
+	RunReport        bool                   `json:"runReport"` // always required
 	SourceTargetList []targets.SourceTarget `json:"sourceTargetList,omitempty"`
 	StageId          int                    `json:"stageId,omitempty"`
 	Started          *time.Time             `json:"started,omitempty"`
-	Status           string                 `json:"status,omitempty"`
-	Type             int                    `json:"type,"` // always required
+	Status           int                    `json:"status,omitempty"` // string and INT?
+	Type             int                    `json:"type"` // always required
 }

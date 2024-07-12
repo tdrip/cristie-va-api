@@ -45,10 +45,10 @@ type SourceTarget struct {
 	Status                    string                          `json:"status,omitempty"`
 	StoragePools              []disks.StoragePool             `json:"storagePools,omitempty"`
 	Target                    *HypervisorTarget               `json:"target,omitempty"`
-	TargetBiosUuid            string                          `json:"targetBiosUuid,omitempty"`
+	TargetBiosUuid            *string                         `json:"targetBiosUuid"`  // null required
 	TargetConfig              *TargetConfig                   `json:"targetConfig,omitempty"`
 	TargetIP                  string                          `json:"targetIP,omitempty"`
-	TargetMAC                 string                          `json:"targetMAC,omitempty"`
+	TargetMAC                 *string                         `json:"targetMAC"` // null required
 	TargetVmCreated           bool                            `json:"targetVmCreated,omitempty"`
 	Type                      string                          `json:"type"`                     //missing from swagger
 	ValidationPauseDuration   int                             `json:"validationPauseDuration,omitempty"`
