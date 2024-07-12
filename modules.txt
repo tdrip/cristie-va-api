@@ -1,0 +1,7 @@
+# github.com/tdrip/apiclient v0.0.9
+## explicit; go 1.21.2
+github.com/tdrip/apiclient/pkg/v1/cfg
+github.com/tdrip/apiclient/pkg/v1/client
+github.com/tdrip/apiclient/pkg/v1/session
+github.com/tdrip/apiclient/pkg/v1/uris
+github.com/tdrip/apiclient/pkg/v1/utils
