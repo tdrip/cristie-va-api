@@ -32,7 +32,7 @@ func New(server string, logger sess.SessionLog, dbg bool, dumpreq bool, dumpres 
 }
 
 func Login(crs *cls.Client, userid string, pwd string) error {
-	request := auth.OAuthRequest{Username: userid, Password: userid}
+	request := auth.OAuthRequest{Username: userid, Password: pwd}
 	bytes, res, err := crs.Session.PostBody(UriUsersAuthPath, &request)
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
