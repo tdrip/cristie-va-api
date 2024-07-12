@@ -15,8 +15,11 @@ type TargetConfig struct {
 	HardDisksInGB            []disks.DiskType             `json:"hardDisksInGB,omitempty"`
 	Hostname                 string                       `json:"hostname,omitempty"`
 	Id                       int                          `json:"id,omitempty"`
+	ImportDHCP               bool                         `json:"importDHCP,omitempty"` //missing from swagger
 	LocalDisksOnly           bool                         `json:"localDisksOnly,omitempty"`
 	MapDisk                  bool                         `json:"mapDisk,omitempty"`
+	DiskMapList              []string                     `json:"diskMapList,omitempty"` //missing from swagger
+	OriginalHostname         string                       `json:"originalHostname,omitempty"` //missing from swagger
 	Os                       string                       `json:"os,omitempty"`
 	Osfamily                 string                       `json:"osfamily,omitempty"`
 	PostRecoveryCredentialId int                          `json:"postRecoveryCredentialId,omitempty"`
@@ -24,7 +27,7 @@ type TargetConfig struct {
 	PostRecoverySSHKey       string                       `json:"postRecoverySSHKey,omitempty"`
 	PostRecoveryUsername     string                       `json:"postRecoveryUsername,omitempty"`
 	PostScriptCmd            *scripts.OrchestrationScript `json:"postScriptCmd,omitempty"`
-	RamSizeInMB              int                          `json:"ramSizeInMB,omitempty"`
+	RamSizeInMB              int64                        `json:"ramSizeInMB,omitempty"`
 	RecoveryFailureAction    string                       `json:"recoveryFailureAction,omitempty"`
 	RecoverySuccessAction    string                       `json:"recoverySuccessAction,omitempty"`
 	SkipMultipath            bool                         `json:"skipMultipath,omitempty"`
