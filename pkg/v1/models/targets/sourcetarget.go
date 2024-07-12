@@ -50,7 +50,7 @@ type SourceTarget struct {
 	TargetIP                  string                          `json:"targetIP,omitempty"`
 	TargetMAC                 string                          `json:"targetMAC,omitempty"`
 	TargetVmCreated           bool                            `json:"targetVmCreated,omitempty"`
-	Type                      string                       `json:"type"` //missing from swagger
+	Type                      string                          `json:"type"`.                     //missing from swagger
 	ValidationPauseDuration   int                             `json:"validationPauseDuration,omitempty"`
 	VmHostType                string                          `json:"vmHostType,omitempty"`
 	VpcConfig                 *VpcConfig                      `json:"vpcConfig,omitempty"`
