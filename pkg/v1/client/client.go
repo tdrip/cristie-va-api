@@ -21,9 +21,9 @@ const (
 	UriUsersAuthSessionId = "v1/users/session_id" // <-- 4.8.3
 )
 
-func New(server string, logger sess.SessionLog, dbg bool, dumpreq bool, dumpres bool) {
+func New(server string, logger sess.SessionLog, dbg bool, dumpreq bool, dumpres bool) *cls.Client {
 	apis, _ := cfg.NewAPIServer(server, "")
-	aser, _ := cfg.NewAPIServer(server, UriUsersAuthPath)
+	aser, _ := cfg.NewAuthServer(server, UriUsersAuthPath)
 	crsclient := cls.NewTlsSkipCustomLogger(apis, aser, logger)
 	crsclient.Session.Debug = dbg
 	crsclient.Session.DumpRequest = dumpreq
@@ -49,8 +49,8 @@ func Login(crs *cls.Client, userid string, pwd string) error {
 
 }
 
-func CheckSession(crs *cls.Client, usesessionid bool) (auth.OAuthResponse, error) {
-	result := auth.OAuthResponse{}
+func CheckSession(crs *cls.Client, usesessionid bool) (auth.SessionResponse, error) {
+	result := auth.SessionResponse{}
 	uri := UriUsersAuthSession
 	if usesessionid {
 		uri = UriUsersAuthSessionId
@@ -62,7 +62,6 @@ func CheckSession(crs *cls.Client, usesessionid bool) (auth.OAuthResponse, error
 		if err != nil {
 			return result, nil
 		}
-		err := cls.SetAuthToken(crs, result.AccessToken)
 		return result, err
 	}
 
