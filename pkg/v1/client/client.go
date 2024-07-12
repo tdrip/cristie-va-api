@@ -22,7 +22,7 @@ func Login(crs *cls.Client, userid string, pwd string) error {
 	request := auth.OAuthRequest{Username: userid, Password: userid}
 	bytes, res, err := crs.Session.PostBody(UriUsersAuthPath, &request)
 
-	if err == nil && res != nil && utils.RequestISsUCCESSFUL(res.StatusCode) {
+	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
 		result := auth.OAuthResponse{}
 		err = json.Unmarshal(bytes, &result)
 		if err != nil {
