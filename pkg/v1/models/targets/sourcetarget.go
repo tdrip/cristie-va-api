@@ -40,6 +40,7 @@ type SourceTarget struct {
 	SendStatistics            bool                            `json:"sendStatistics,omitempty"`
 	Source                    *BackupSource                   `json:"source,omitempty"`
 	SourceClient              string                          `json:"sourceClient,omitempty"`
+	SourceMacAddress          string                          `json:"sourceMacAddress,omitempty"` //missing from swagger
 	SourceServer              string                          `json:"sourceServer,omitempty"`
 	Status                    string                          `json:"status,omitempty"`
 	StoragePools              []disks.StoragePool             `json:"storagePools,omitempty"`
@@ -49,6 +50,7 @@ type SourceTarget struct {
 	TargetIP                  string                          `json:"targetIP,omitempty"`
 	TargetMAC                 string                          `json:"targetMAC,omitempty"`
 	TargetVmCreated           bool                            `json:"targetVmCreated,omitempty"`
+	Type                      string                       `json:"type"` //missing from swagger
 	ValidationPauseDuration   int                             `json:"validationPauseDuration,omitempty"`
 	VmHostType                string                          `json:"vmHostType,omitempty"`
 	VpcConfig                 *VpcConfig                      `json:"vpcConfig,omitempty"`
