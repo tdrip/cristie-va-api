@@ -9,6 +9,7 @@ type Mapping struct {
 	Gateway      string   `json:"gateway,omitempty"`
 	Id           int      `json:"id,omitempty"`
 	InsecureTls  bool     `json:"insecure_tls,omitempty"`
+	InsecureSSL  bool     `json:"insecure_ssl,omitempty"` //missing from swagger
 	Ip           string   `json:"ip,omitempty"`
 	Mac          string   `json:"mac,omitempty"`
 	Netmask      string   `json:"netmask,omitempty"`

@@ -31,7 +31,9 @@ type TargetConfig struct {
 	RecoveryFailureAction    string                       `json:"recoveryFailureAction,omitempty"`
 	RecoverySuccessAction    string                       `json:"recoverySuccessAction,omitempty"`
 	SkipMultipath            bool                         `json:"skipMultipath,omitempty"`
+	SourceMacAddress         string                       `json:"sourceMacAddress,omitempty"` //missing from swagger
 	SysServices              string                       `json:"sysServices,omitempty"`
+	Type                     string                       `json:"type"` //missing from swagger
 	VerboseLogging           bool                         `json:"verboseLogging,omitempty"`
 	VmName                   string                       `json:"vmName,omitempty"`
 }
