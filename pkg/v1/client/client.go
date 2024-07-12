@@ -2,11 +2,14 @@ package client
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"net/http"
 
 	cls "github.com/tdrip/apiclient/pkg/v1/client"
 	utils "github.com/tdrip/apiclient/pkg/v1/utils"
 	auth "github.com/tdrip/cristie-va-api/pkg/v1/api/auth"
+	models "github.com/tdrip/cristie-va-api/pkg/v1/models"
 )
 
 const (
@@ -50,6 +53,15 @@ func CheckSession(crs *cls.Client, usesessionid bool) (auth.OAuthResponse, error
 		return result, err
 	}
 
-	return result, fmt.Errorf("job creation failed with errors: %v", err)
+	return result, fmt.Errorf("check session failed with errors: %v", err)
 
+}
+
+func GetError(rawbody []byte, res *http.Response) (models.Exception, error) {
+	if len(rawbody) > 0 && res != nil && res.Body != http.NoBody {
+		res := models.Exception{}
+		err := json.Unmarshal(rawbody, &res)
+		return res, err
+	}
+	return models.Exception{}, errors.New("no data in http boy to parse as error")
 }
