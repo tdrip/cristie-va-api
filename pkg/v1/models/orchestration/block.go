@@ -14,7 +14,7 @@ type BlockReportConfig struct {
 
 type Block struct {
 	Description      string                 `json:"description,omitempty"`
-	Finished         time.Time              `json:"finished,omitempty"`
+	Finished         *time.Time             `json:"finished,omitempty"`
 	Id               int                    `json:"id,omitempty"`
 	JobId            int                    `json:"jobId,omitempty"`
 	Name             string                 `json:"name,omitempty"`
@@ -23,7 +23,7 @@ type Block struct {
 	RunReport        bool                   `json:"runReport,omitempty"`
 	SourceTargetList []targets.SourceTarget `json:"sourceTargetList,omitempty"`
 	StageId          int                    `json:"stageId,omitempty"`
-	Started          time.Time              `json:"started,omitempty"`
+	Started          *time.Time             `json:"started,omitempty"`
 	Status           string                 `json:"status,omitempty"`
-	Type             string                 `json:"type,omitempty"`
+	Type             int                    `json:"type,"` // always required
 }
