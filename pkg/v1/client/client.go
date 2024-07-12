@@ -68,11 +68,11 @@ func CheckSession(crs *cls.Client, usesessionid bool) (auth.SessionResponse, err
 
 }
 
-func GetError(rawbody []byte) (models.Exception, error) {
+func GetError(rawbody []byte) (models.ErrorInformation, error) {
+	res := models.ErrorInformation{}
 	if len(rawbody) > 0 {
-		res := models.Exception{}
 		err := json.Unmarshal(rawbody, &res)
 		return res, err
 	}
-	return models.Exception{}, errors.New("no data in http body to parse as error")
+	return res, errors.New("no data in http body to parse as error")
 }
