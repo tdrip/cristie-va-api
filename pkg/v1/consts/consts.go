@@ -2,7 +2,7 @@ package consts
 
 // source targets
 const(
-	SourceTarget_Type_RMBR="RBMR"
+	SourceTarget_Type_RBMR="RBMR"
 	SourceTarget_VMHostType_Standard="STANDARD"
 )
 
