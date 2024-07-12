@@ -16,14 +16,13 @@ const (
 	UriRecoveryOrchestrationJobsStagesBlocks = "v1/recovery/orchestration/jobs/%d/stages/%d/blocks"
 )
 
-func CreateBlock(crs *cls.Client, name string, jobid int, stagid int) (models.Event, error) {
+func CreateBlock(crs *cls.Client,request orch.Block) (models.Event, error) {
 	result := models.Event{}
 	if !crs.Session.HasToken() {
 		return result, errors.New("task creation failed - token missin session")
 	}
 
-	request := orch.Block{Name: name, JobId: jobid, StageId: stagid}
-	bytes, res, err := crs.Session.PostBody(fmt.Sprintf(UriRecoveryOrchestrationJobsStagesBlocks, jobid, stagid), &request)
+	bytes, res, err := crs.Session.PostBody(fmt.Sprintf(UriRecoveryOrchestrationJobsStagesBlocks, request.JobId, request.StageId), &request)
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
 		err = json.Unmarshal(bytes, &result)
