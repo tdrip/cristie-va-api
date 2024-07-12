@@ -74,5 +74,5 @@ func GetError(rawbody []byte) (models.Exception, error) {
 		err := json.Unmarshal(rawbody, &res)
 		return res, err
 	}
-	return models.Exception{}, errors.New("no data in http boy to parse as error")
+	return models.Exception{}, errors.New("no data in http body to parse as error")
 }

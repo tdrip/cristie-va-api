@@ -8,7 +8,6 @@ import (
 	cls "github.com/tdrip/apiclient/pkg/v1/client"
 	utils "github.com/tdrip/apiclient/pkg/v1/utils"
 	client "github.com/tdrip/cristie-va-api/pkg/v1/client"
-	models "github.com/tdrip/cristie-va-api/pkg/v1/models"
 	orch "github.com/tdrip/cristie-va-api/pkg/v1/models/orchestration"
 )
 
@@ -16,8 +15,9 @@ const (
 	UriRecoveryOrchestrationJobsStages = "v1/recovery/orchestration/jobs/%d/stages"
 )
 
-func CreateStage(crs *cls.Client, name string, jobid int) (models.Event, error) {
-	result := models.Event{}
+// Was told that orch returns events, this call does not
+func CreateStage(crs *cls.Client, name string, jobid int) ( orch.Stage, error) {
+	result := orch.Stage{}
 	if !crs.Session.HasToken() {
 		return result, errors.New("stage creation failed - token missin session")
 	}
