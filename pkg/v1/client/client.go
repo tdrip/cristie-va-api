@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"net/http"
 
 	cfg "github.com/tdrip/apiclient/pkg/v1/cfg"
 	sess "github.com/tdrip/apiclient/pkg/v1/session"
