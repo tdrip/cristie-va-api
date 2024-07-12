@@ -6,6 +6,9 @@ import (
 	"fmt"
 	"net/http"
 
+	cfg "github.com/tdrip/apiclient/pkg/v1/cfg"
+	sess "github.com/tdrip/apiclient/pkg/v1/session"
+
 	cls "github.com/tdrip/apiclient/pkg/v1/client"
 	utils "github.com/tdrip/apiclient/pkg/v1/utils"
 	auth "github.com/tdrip/cristie-va-api/pkg/v1/api/auth"
@@ -17,6 +20,16 @@ const (
 	UriUsersAuthSession   = "v1/users/session"    // <-- 4.9.1+
 	UriUsersAuthSessionId = "v1/users/session_id" // <-- 4.8.3
 )
+
+func New(server string, logger sess.SessionLog, dbg bool, dumpreq bool, dumpres bool) {
+	apis, _ := cfg.NewAPIServer(server, "")
+	aser, _ := cfg.NewAPIServer(server, UriUsersAuthPath)
+	crsclient := cls.NewTlsSkipCustomLogger(apis, aser, logger)
+	crsclient.Session.Debug = dbg
+	crsclient.Session.DumpRequest = dumpreq
+	crsclient.Session.DumpResponse = dumpres
+	return crsclient
+}
 
 func Login(crs *cls.Client, userid string, pwd string) error {
 	request := auth.OAuthRequest{Username: userid, Password: userid}
@@ -44,7 +57,7 @@ func CheckSession(crs *cls.Client, usesessionid bool) (auth.OAuthResponse, error
 	}
 	bytes, res, err := crs.Session.Get(uri)
 
-	if err == nil && res != nil && utils.RequestISsUCCESSFUL(res.StatusCode) {
+	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
 		err = json.Unmarshal(bytes, &result)
 		if err != nil {
 			return result, nil
