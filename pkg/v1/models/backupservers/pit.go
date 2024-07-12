@@ -1,4 +1,4 @@
-package backupserver
+package backupservers
 
 import (
 	"time"
