@@ -8,7 +8,6 @@ import (
 	cls "github.com/tdrip/apiclient/pkg/v1/client"
 	utils "github.com/tdrip/apiclient/pkg/v1/utils"
 	client "github.com/tdrip/cristie-va-api/pkg/v1/client"
-	models "github.com/tdrip/cristie-va-api/pkg/v1/models"
 	bs "github.com/tdrip/cristie-va-api/pkg/v1/models/backupservers"
 	tgts "github.com/tdrip/cristie-va-api/pkg/v1/models/targets"
 )
