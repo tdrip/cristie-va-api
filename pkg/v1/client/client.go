@@ -69,8 +69,8 @@ func CheckSession(crs *cls.Client, usesessionid bool) (auth.SessionResponse, err
 
 }
 
-func GetError(rawbody []byte, res *http.Response) (models.Exception, error) {
-	if len(rawbody) > 0 && res != nil && res.Body != http.NoBody {
+func GetError(rawbody []byte) (models.Exception, error) {
+	if len(rawbody) > 0 {
 		res := models.Exception{}
 		err := json.Unmarshal(rawbody, &res)
 		return res, err
