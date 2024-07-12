@@ -1,10 +1,10 @@
-package models
+package restore
 
 import (
 	"time"
 )
 
-type RestoreJobConfig struct {
+type JobConfig struct {
 	BackupId      int32     `json:"backupId,omitempty"`
 	BackupVersion time.Time `json:"backupVersion,omitempty"`
 	CreateVm      bool      `json:"create_vm,omitempty"`
