@@ -15,6 +15,30 @@ const (
 	UriWebbootMap = "v1/webboot/map/"
 )
 
+func CreateWindowsDHCPMapping(crs *cls.Client, product string, mac string, buuid string) (wb.Mappings, error) {
+	result := wb.Mappings{}
+	if !crs.Session.HasToken() {
+		return result, errors.New("webboot Linux DHCP mapping failed - token missing session")
+	}
+	return CreateDHCPMapping(crs, product, "Windows", mac, buuid))
+}
+
+func CreateLocalDHCPMapping(crs *cls.Client, product string, mac string, buuid string) (wb.Mappings, error) {
+	result := wb.Mappings{}
+	if !crs.Session.HasToken() {
+		return result, errors.New("webboot Linux DHCP mapping failed - token missing session")
+	}
+	return CreateDHCPMapping(crs, product, "Local", mac, buuid))
+}
+
+func CreateLinuxDHCPMapping(crs *cls.Client, product string, mac string, buuid string) (wb.Mappings, error) {
+	result := wb.Mappings{}
+	if !crs.Session.HasToken() {
+		return result, errors.New("webboot Linux DHCP mapping failed - token missing session")
+	}
+	return CreateDHCPMapping(crs, product, "Linux", mac, buuid))
+}
+
 func CreateDHCPMapping(crs *cls.Client, product string, os string, mac string, buuid string) (wb.Mappings, error) {
 	result := wb.Mappings{}
 	if !crs.Session.HasToken() {
