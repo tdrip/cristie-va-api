@@ -10,7 +10,7 @@ type BlockReportConfig struct {
 	Recipients []string `json:"recipients,omitempty"`
 }
 
-type OrchestrationBlock struct {
+type Block struct {
 	Description  string             `json:"description,omitempty"`
 	Finished     time.Time          `json:"finished,omitempty"`
 	Id           int32              `json:"id,omitempty"`
