@@ -1,7 +1,7 @@
-package models
+package orchestration
 
-type OrchestrationStage struct {
-	Blocks  []OrchestrationBlock `json:"blocks,omitempty"`
+type Stage struct {
+	Blocks  []Block `json:"blocks,omitempty"`
 	Enabled bool                 `json:"enabled,omitempty"`
 	Id      int32                `json:"id,omitempty"`
 	JobId   int32                `json:"jobId,omitempty"`
