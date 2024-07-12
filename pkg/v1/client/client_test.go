@@ -1,9 +1,10 @@
 package client
 
-func TestError(t *Testing) {
+import "testing"
 
+func TestClientError(t *testing.T) {
 	bytes := []byte{}
-	err := GetError(bytes)
+	_, err := GetError(bytes)
 	if err != nil {
 		t.Fatalf("%v", err.Error())
 	}

@@ -30,6 +30,6 @@ func CreateJob(crs *cls.Client, name string) (models.Event, error) {
 		err = json.Unmarshal(bytes, &result)
 		return result, err
 	}
-	error_body, nerr := client.GetError(bytes, res)
+	error_body, nerr := client.GetError(bytes)
 	return result, fmt.Errorf("ljob creation failed - errors: %v %v %v", err, error_body, nerr)
 }

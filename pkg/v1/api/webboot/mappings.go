@@ -48,6 +48,6 @@ func CreateMapping(crs *cls.Client, request wb.Mapping) (wb.Mappings, error) {
 		err = json.Unmarshal(bytes, &result)
 		return result, err
 	}
-	error_body, nerr := client.GetError(bytes, res)
+	error_body, nerr := client.GetError(bytes)
 	return result, fmt.Errorf("webboot mapping  - errors: %v %v %v", err, error_body, nerr)
 }
