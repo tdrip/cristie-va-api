@@ -4,6 +4,10 @@ import (
 	"time"
 )
 
+type BackupServers struct {
+	Servers []BackupServer  `json:"servers,omitempty"`	
+}
+
 type BackupServer struct {
 	BackupClients []Client  `json:"backupClients,omitempty"`
 	Host          string    `json:"host,omitempty"`
