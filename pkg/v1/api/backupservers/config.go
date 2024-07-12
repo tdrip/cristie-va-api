@@ -9,20 +9,29 @@ import (
 	utils "github.com/tdrip/apiclient/pkg/v1/utils"
 	client "github.com/tdrip/cristie-va-api/pkg/v1/client"
 	models "github.com/tdrip/cristie-va-api/pkg/v1/models"
-	orch "github.com/tdrip/cristie-va-api/pkg/v1/models/orchestration"
+	bs "github.com/tdrip/cristie-va-api/pkg/v1/models/backupservers"
+	tgts "github.com/tdrip/cristie-va-api/pkg/v1/models/targets"
 )
 
 const (
 	UriRecoveryBackupServerConfig = "v1/recovery/backup-servers/getconfig"
 )
 
-func GetConfigDetails(crs *cls.Client,backupserverid int, clientname string, backuptype string) (models.Event, error) {
-	result := models.Event{}
+func GetConfigDetails(crs *cls.Client,backupserverid int, clientname string, backuptype string) (tgts.VmConfiguration, error) {
+	result := tgts.VmConfiguration{}
 	if !crs.Session.HasToken() {
 		return result, errors.New("backup server - get config details failed - token missing session")
 	}
 
-	request := orch.Job{}
+	request := bs.ConfigRequest{}
+	request.ServerId = backupserverid
+	request.ClientName = clientname
+	request.BackupType = backuptype
+	request.Password = "null" // must be provided in this format - this is weird
+	request.Username = "null" // must be provided in this format - this is weird
+	request.ClientDomain = "null" // must be provided in this format - this is weird
+	request.EncryptionPasswords = []string{} // needs these to be empty array
+	
 	bytes, res, err := crs.Session.PostBody(UriRecoveryBackupServerConfig, &request)
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
