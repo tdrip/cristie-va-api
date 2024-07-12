@@ -9,14 +9,15 @@ import (
 	utils "github.com/tdrip/apiclient/pkg/v1/utils"
 	client "github.com/tdrip/cristie-va-api/pkg/v1/client"
 	orch "github.com/tdrip/cristie-va-api/pkg/v1/models/orchestration"
+	models "github.com/tdrip/cristie-va-api/pkg/v1/models"
 )
 
 const (
 	UriRecoveryOrchestrationJobsStagesBlocks = "v1/recovery/orchestration/jobs/%d/stages/%d/blocks"
 )
 
-func CreateBlock(crs *cls.Client, name string, jobid int, stagid int) (orch.Block, error) {
-	result := orch.Block{}
+func CreateBlock(crs *cls.Client, name string, jobid int, stagid int) (models.Event, error) {
+	result := models.Event{}
 	if !crs.Session.HasToken() {
 		return result, errors.New("task creation failed - token missin session")
 	}
