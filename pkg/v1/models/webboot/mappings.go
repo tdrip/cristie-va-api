@@ -13,3 +13,7 @@ type Mapping struct {
 	Os           string   `json:"os,omitempty"`
 	Product      string   `json:"product,omitempty"`
 }
+
+type Mappings struct {
+	Bootmap     []Mapping   `json:"bootmap,omitempty"`
+}
