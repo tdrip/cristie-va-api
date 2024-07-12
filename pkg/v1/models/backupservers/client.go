@@ -10,7 +10,7 @@ type Client struct {
 	DisrecDate       time.Time `json:"disrecDate,omitempty"`
 	Domain           string    `json:"domain,omitempty"`
 	HostId           string    `json:"hostId,omitempty"`
-	Id               int32     `json:"id,omitempty"`
+	Id               int       `json:"id,omitempty"`
 	Name             string    `json:"name,omitempty"`
 	Platform         string    `json:"platform,omitempty"`
 	PointInTimeDates []Pit     `json:"pointInTimeDates,omitempty"`
