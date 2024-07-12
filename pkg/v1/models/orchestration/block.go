@@ -22,5 +22,5 @@ type Block struct {
 	StageId      int                `json:"stageId,omitempty"`
 	Started      time.Time          `json:"started,omitempty"`
 	Status       string             `json:"status,omitempty"`
-	Type_        string             `json:"type,omitempty"`
+	Type         string             `json:"type,omitempty"`
 }
