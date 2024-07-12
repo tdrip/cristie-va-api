@@ -7,6 +7,7 @@ import (
 
 	cls "github.com/tdrip/apiclient/pkg/v1/client"
 	utils "github.com/tdrip/apiclient/pkg/v1/utils"
+	client "github.com/tdrip/cristie-va-api/pkg/v1/client"
 	models "github.com/tdrip/cristie-va-api/pkg/v1/models"
 	orch "github.com/tdrip/cristie-va-api/pkg/v1/models/orchestration"
 )
@@ -29,7 +30,6 @@ func CreateJob(crs *cls.Client, name string) (models.Event, error) {
 		err = json.Unmarshal(bytes, &result)
 		return res, err
 	}
-
-	return result, fmt.Errorf("job creation failed with errors: %v", err)
-
+	error_body, nerr := client.GetError(bytes, res)
+	return result, fmt.Errorf("ljob creation failed - errors: %v %v %v", err, error_body, nerr)
 }
