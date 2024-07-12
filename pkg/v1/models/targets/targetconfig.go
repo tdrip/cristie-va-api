@@ -2,7 +2,7 @@ package targets
 
 import (
 	disks "github.com/tdrip/cristie-va-api/pkg/v1/models/disks"
-	orch "github.com/tdrip/cristie-va-api/pkg/v1/models/orchestration"
+	scripts "github.com/tdrip/cristie-va-api/pkg/v1/models/scripts"
 )
 
 type TargetConfig struct {
@@ -23,7 +23,7 @@ type TargetConfig struct {
 	PostRecoveryPassword     string                    `json:"postRecoveryPassword,omitempty"`
 	PostRecoverySSHKey       string                    `json:"postRecoverySSHKey,omitempty"`
 	PostRecoveryUsername     string                    `json:"postRecoveryUsername,omitempty"`
-	PostScriptCmd            *orch.OrchestrationScript `json:"postScriptCmd,omitempty"`
+	PostScriptCmd            *scripts.OrchestrationScript `json:"postScriptCmd,omitempty"`
 	RamSizeInMB              int                       `json:"ramSizeInMB,omitempty"`
 	RecoveryFailureAction    string                    `json:"recoveryFailureAction,omitempty"`
 	RecoverySuccessAction    string                    `json:"recoverySuccessAction,omitempty"`

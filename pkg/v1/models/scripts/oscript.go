@@ -1,4 +1,4 @@
-package orchestration
+package scripts
 
 type OrchestrationScript struct {
 	Contents string `json:"contents,omitempty"`
