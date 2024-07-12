@@ -2,7 +2,8 @@ package webboot
 
 type Mapping struct {
 	BiosUuid     string   `json:"bios_uuid,omitempty"`
-	ConfigId     int      `json:"configId,omitempty"`
+	ConfigId     *int      `json:"configId,omitempty"`
+	DHCP         bool     `json:"dhcp,omitempty"`
 	DnsAddrs     string   `json:"dns_addrs,omitempty"`
 	DrNetworking bool     `json:"drNetworking,omitempty"`
 	Gateway      string   `json:"gateway,omitempty"`
