@@ -31,7 +31,7 @@ func CreateDHCPMapping(crs *cls.Client, product string, os string, mac string, b
 	request.Netmask = "DHCP"
 	request.Gateway = "DHCP"
 	request.DnsAddrs = ""
-	request.OS = os
+	request.Os = os
 	request.Product = product
 	return CreateMapping(crs, request)
 }
