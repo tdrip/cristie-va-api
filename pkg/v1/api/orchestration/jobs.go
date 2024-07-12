@@ -26,7 +26,7 @@ func CreateJob(crs *cls.Client, name string) (models.Event, error) {
 	request := orch.Job{Name: name, FailureOption: FailureOption}
 	bytes, res, err := crs.Session.PostBody(UriRecoveryOrchestration, &request)
 
-	if err == nil && res != nil && utils.RequestISsUCCESSFUL(res.StatusCode) {
+	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
 		err = json.Unmarshal(bytes, &result)
 		return res, err
 	}
