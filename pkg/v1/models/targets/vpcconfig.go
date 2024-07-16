@@ -7,6 +7,6 @@ import (
 type VpcConfig struct {
 	DetachOnReboot bool             `json:"detachOnReboot,omitempty"`
 	Device         *networks.Device `json:"device,omitempty"`
-	Id             int32            `json:"id,omitempty"`
-	Zone           *networks.Zone  `json:"zone,omitempty"`
+	Id             int              `json:"id,omitempty"`
+	Zone           *networks.Zone   `json:"zone,omitempty"`
 }

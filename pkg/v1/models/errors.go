@@ -12,7 +12,7 @@ type ErrorInformation struct {
 }
 
 type Exception struct {
-	ErrorCode        int32  `json:"errorCode,omitempty"`
+	ErrorCode        int    `json:"errorCode,omitempty"`
 	Information      string `json:"information,omitempty"`
 	LocalizedMessage string `json:"localizedMessage,omitempty"`
 	Message          string `json:"message,omitempty"`

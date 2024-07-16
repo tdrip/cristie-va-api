@@ -7,9 +7,9 @@ type Volume struct {
 	ParentVG     string `json:"parentVG,omitempty"`
 	Selected     bool   `json:"selected,omitempty"`
 	Size         int64  `json:"size,omitempty"`
-	SizeGB       int32  `json:"sizeGB,omitempty"`
+	SizeGB       int    `json:"sizeGB,omitempty"`
 	SizeKB       int64  `json:"sizeKB,omitempty"`
-	SizeMB       int32  `json:"sizeMB,omitempty"`
+	SizeMB       int    `json:"sizeMB,omitempty"`
 	SystemVolume bool   `json:"systemVolume,omitempty"`
 	Valid        bool   `json:"valid,omitempty"`
 }
@@ -17,6 +17,6 @@ type Volume struct {
 type LogicalVolume struct {
 	Volume
 	Amended     bool     `json:"amended,omitempty"`
-	Id          int32    `json:"id,omitempty"`
+	Id          int      `json:"id,omitempty"`
 	MountPoints []string `json:"mountPoints,omitempty"`
 }

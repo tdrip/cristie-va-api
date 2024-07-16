@@ -5,12 +5,12 @@ import (
 )
 
 type JobConfig struct {
-	BackupId      int32     `json:"backupId,omitempty"`
+	BackupId      int       `json:"backupId,omitempty"`
 	BackupVersion time.Time `json:"backupVersion,omitempty"`
 	CreateVm      bool      `json:"create_vm,omitempty"`
 	EventUuid     string    `json:"eventUuid,omitempty"`
-	HypervisorId  int32     `json:"hypervisorId,omitempty"`
-	Id            int32     `json:"id,omitempty"`
+	HypervisorId  int       `json:"hypervisorId,omitempty"`
+	Id            int       `json:"id,omitempty"`
 	Manual        bool      `json:"manual,omitempty"`
 	Offsite       bool      `json:"offsite,omitempty"`
 	Platform      string    `json:"platform,omitempty"`

@@ -5,7 +5,7 @@ type DiskType struct {
 	Datastore      string  `json:"datastore,omitempty"`
 	DiskNo         int     `json:"diskNo,omitempty"`
 	DiskPrefix     string  `json:"diskPrefix,omitempty"`
-	Id             int32   `json:"id,omitempty"`
+	Id             int     `json:"id,omitempty"`
 	Lazy           bool    `json:"lazy,omitempty"`
 	LocalDisk      bool    `json:"localDisk,omitempty"`
 	Multipathed    bool    `json:"multipathed,omitempty"`
