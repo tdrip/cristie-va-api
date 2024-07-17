@@ -15,7 +15,7 @@ type BlockReportConfig struct {
 type Block struct {
 	Description      string                 `json:"description,omitempty"`
 	Finished         *time.Time             `json:"finished,omitempty"`
-	Id               *int                   `json:"id"` // always required
+	Id               *int                   `json:"id,omitempty"`
 	JobId            int                    `json:"jobId,omitempty"`
 	Name             string                 `json:"name,omitempty"`
 	ReportConfig     *BlockReportConfig     `json:"reportConfig,omitempty"`

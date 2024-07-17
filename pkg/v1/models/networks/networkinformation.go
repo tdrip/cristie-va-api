@@ -16,6 +16,6 @@ type NetworkInformation struct {
 	Network       string `json:"network,omitempty"`
 	NicId         int    `json:"nicId,omitempty"`
 	UserAdded     bool   `json:"userAdded"` //always required
-	Virtual       bool   `json:"virtual"`   //always required
+	Virtual       bool   `json:"virtual,omitempty"`
 	VlanId        int    `json:"vlanId,omitempty"`
 }
