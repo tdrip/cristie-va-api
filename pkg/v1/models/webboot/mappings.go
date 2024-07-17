@@ -1,22 +1,22 @@
 package webboot
 
 type Mapping struct {
-	BiosUuid     string   `json:"bios_uuid"`
+	BiosUuid     string   `json:"bios_uuid,omitempty"`
 	ConfigId     *int     `json:"configId,omitempty"`
-	DHCP         bool     `json:"dhcp,omitempty"`
-	DnsAddrs     string   `json:"dns_addrs,omitempty"`
-	DrNetworking bool     `json:"drNetworking,omitempty"`
+	DHCP         bool     `json:"dhcp"`
+	DnsAddrs     []string `json:"dns_addrs"`
+	DrNetworking bool     `json:"drNetworking"`
 	Gateway      string   `json:"gateway,omitempty"`
 	Id           int      `json:"id,omitempty"`
-	InsecureTls  bool     `json:"insecure_tls,omitempty"`
-	InsecureSSL  bool     `json:"insecure_ssl,omitempty"` //missing from swagger
+	InsecureTls  bool     `json:"insecure_tls"`
+	InsecureSSL  bool     `json:"insecure_ssl"` //missing from swagger
 	Ip           string   `json:"ip,omitempty"`
-	Mac          string   `json:"mac"` 
+	Mac          string   `json:"mac,omitempty"`
 	Netmask      string   `json:"netmask,omitempty"`
 	Os           string   `json:"os,omitempty"`
 	Product      string   `json:"product,omitempty"`
 }
 
 type Mappings struct {
-	Bootmap     []Mapping   `json:"bootmap,omitempty"`
+	Bootmap []Mapping `json:"bootmap,omitempty"`
 }
