@@ -7,6 +7,6 @@ func TestClientError(t *testing.T) {
 	_, err := GetError(bytes)
 	// should have an error as body is empty
 	if err == nil {
-		t.Fatalf("%v", err.Error())
+		t.Fatal("Empty data should have produced an error")
 	}
 }
