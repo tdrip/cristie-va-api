@@ -25,6 +25,6 @@ type Block struct {
 	SourceTargetList []targets.SourceTarget `json:"sourceTargetList,omitempty"`
 	StageId          int                    `json:"stageId,omitempty"`
 	Started          *time.Time             `json:"started,omitempty"`
-	Status           int                    `json:"status,omitempty"` // string and INT?
-	Type             int                    `json:"type"`             // always required
+	Status           int                    `json:"status"` // always required - string and INT?
+	Type             int                    `json:"type"`   // always required
 }
