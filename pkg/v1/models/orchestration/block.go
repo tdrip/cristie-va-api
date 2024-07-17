@@ -19,11 +19,12 @@ type Block struct {
 	JobId            int                    `json:"jobId,omitempty"`
 	Name             string                 `json:"name,omitempty"`
 	ReportConfig     *BlockReportConfig     `json:"reportConfig,omitempty"`
-	Reusable         bool                   `json:"reusable"` // always required
-	RunReport        bool                   `json:"runReport"` // always required
+	Reusable         bool                   `json:"reusable"`      // always required
+	RunReport        bool                   `json:"runReport"`     // always required
+	SelectedStage    *int                   `json:"selectedStage"` // always required
 	SourceTargetList []targets.SourceTarget `json:"sourceTargetList,omitempty"`
 	StageId          int                    `json:"stageId,omitempty"`
 	Started          *time.Time             `json:"started,omitempty"`
 	Status           int                    `json:"status,omitempty"` // string and INT?
-	Type             int                    `json:"type"` // always required
+	Type             int                    `json:"type"`             // always required
 }

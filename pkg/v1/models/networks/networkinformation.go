@@ -2,8 +2,8 @@ package networks
 
 type NetworkInformation struct {
 	Description   string `json:"description,omitempty"`
-	Dhcp          bool   `json:"dhcp,omitempty"`
-	DhcpVA        bool   `json:"dhcpVA,omitempty"`
+	Dhcp          bool   `json:"dhcp"`   //always required
+	DhcpVA        bool   `json:"dhcpVA"` //always required
 	Gateway       string `json:"gateway,omitempty"`
 	Hostname      string `json:"hostname,omitempty"`
 	Id            int    `json:"id,omitempty"`
@@ -15,7 +15,7 @@ type NetworkInformation struct {
 	NetMask       string `json:"netMask,omitempty"`
 	Network       string `json:"network,omitempty"`
 	NicId         int    `json:"nicId,omitempty"`
-	UserAdded     bool   `json:"userAdded,omitempty"`
-	Virtual       bool   `json:"virtual,omitempty"`
+	UserAdded     bool   `json:"userAdded"` //always required
+	Virtual       bool   `json:"virtual"`   //always required
 	VlanId        int    `json:"vlanId,omitempty"`
 }

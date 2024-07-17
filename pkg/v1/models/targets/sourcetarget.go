@@ -21,7 +21,7 @@ type SourceTarget struct {
 	DrNetworkBondingConfigs   []networks.DrNetworkBonding     `json:"drNetworkBondingConfigs"` // null required
 	DrNetworkConfig           []networks.NetworkInformation   `json:"drNetworkConfig"`         // null required
 	Enabled                   bool                            `json:"enabled,omitempty"`
-	EnhancedTestingConfig     *etesting.EnhancedTestingConfig `json:"enhancedTestingConfig,omitempty"`
+	EnhancedTestingConfig     *etesting.EnhancedTestingConfig `json:"enhancedTestingConfig"` // null required
 	Events                    []models.Event                  `json:"events,omitempty"`
 	Id                        *int                            `json:"id"` // null required
 	IsoTrigger                bool                            `json:"isoTrigger,omitempty"`
@@ -38,6 +38,7 @@ type SourceTarget struct {
 	ScheduleId                int                             `json:"scheduleId,omitempty"`
 	ScriptBlockId             int                             `json:"scriptBlockId,omitempty"`
 	SendStatistics            bool                            `json:"sendStatistics,omitempty"`
+	SendStats                 bool                            `json:"sendStats,omitempty"`
 	Source                    *BackupSource                   `json:"source,omitempty"`
 	SourceClient              string                          `json:"sourceClient,omitempty"`
 	SourceMacAddress          string                          `json:"sourceMacAddress,omitempty"` //missing from swagger

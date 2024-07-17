@@ -15,7 +15,7 @@ type TargetConfig struct {
 	HardDisksInGB            []disks.DiskType             `json:"hardDisksInGB"` // null required
 	Hostname                 string                       `json:"hostname,omitempty"`
 	Id                       int                          `json:"id,omitempty"`
-	ImportDHCP               bool                         `json:"importDHCP,omitempty"` //missing from swagger
+	ImportDHCP               bool                         `json:"importDHCP"` //missing from swagger
 	LocalDisksOnly           bool                         `json:"localDisksOnly,omitempty"`
 	MapDisk                  bool                         `json:"mapDisk,omitempty"`
 	DiskMapList              []string                     `json:"diskMapList"`                //missing from swagger
