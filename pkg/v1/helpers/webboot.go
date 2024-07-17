@@ -1,8 +1,8 @@
 package helpers
 
 import (
-	"github.com/tdrip/cristie-va-api/pkg/v1/api/webboot"
 	"github.com/tdrip/cristie-va-api/pkg/v1/consts"
+	"github.com/tdrip/cristie-va-api/pkg/v1/models/webboot"
 )
 
 func NewWebbootMapping(mac string, buuid string, os string, prodct string) *webboot.Mapping {

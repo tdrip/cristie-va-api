@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/tdrip/cristie-va-api/pkg/v1/api/backupservers"
 	"github.com/tdrip/cristie-va-api/pkg/v1/consts"
+	"github.com/tdrip/cristie-va-api/pkg/v1/models/backupservers"
 	"github.com/tdrip/cristie-va-api/pkg/v1/models/disks"
 	"github.com/tdrip/cristie-va-api/pkg/v1/models/targets"
 )

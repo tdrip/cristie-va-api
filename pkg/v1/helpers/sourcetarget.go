@@ -1,8 +1,8 @@
 package helpers
 
 import (
-	"github.com/tdrip/cristie-va-api/pkg/v1/api/backupservers"
 	"github.com/tdrip/cristie-va-api/pkg/v1/consts"
+	"github.com/tdrip/cristie-va-api/pkg/v1/models/backupservers"
 	"github.com/tdrip/cristie-va-api/pkg/v1/models/targets"
 )
 
@@ -16,7 +16,7 @@ func NewSourceTargets(targetmac string, targetbuuid string, targetos string, cli
 func NewSourceTarget(targetmac string, targetbuuid string, targetos string, client backupservers.Client, cfg targets.VmConfiguration, source *targets.BackupSource) targets.SourceTarget {
 	target := targets.NewSourceTarget()
 	target.VmHostType = consts.SourceTarget_VMHostType_Standard
-	target.TargetConfig = NewTargetConfig(source, cfg)
+	target.TargetConfig = NewTargetConfig(client, cfg)
 	target.SourceMacAddress = targetmac
 	target.Source = source
 	if len(targetmac) > 0 {
