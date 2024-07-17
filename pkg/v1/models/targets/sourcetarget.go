@@ -8,7 +8,6 @@ import (
 	etesting "github.com/tdrip/cristie-va-api/pkg/v1/models/etesting"
 	networks "github.com/tdrip/cristie-va-api/pkg/v1/models/networks"
 	recovery "github.com/tdrip/cristie-va-api/pkg/v1/models/recovery"
-	"github.com/tdrip/cristie-va-api/pkg/v1/models/targets"
 	webboot "github.com/tdrip/cristie-va-api/pkg/v1/models/webboot"
 )
 
@@ -65,7 +64,7 @@ func NewSourceTarget() SourceTarget {
 	st.BootDelay = nil
 	st.BootOrder = nil
 	st.CmLiteTarget = nil
-	st.DhwConfig = &targets.DhwConfiguration{}
+	st.DhwConfig = &DhwConfiguration{}
 	st.DnsEntryRequest = nil
 	st.DrNetworkBondingConfigs = []networks.DrNetworkBonding{}
 	st.DrNetworkConfigs = []networks.NetworkInformation{}
