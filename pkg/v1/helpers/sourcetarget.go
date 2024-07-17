@@ -7,7 +7,7 @@ import (
 )
 
 func NewSourceTargets(targetmac string, targetbuuid string, targetos string, client bs.Client, cfg trg.VmConfiguration, source *trg.BackupSource) []trg.SourceTarget {
-	target := NewSourceTarget()
+	target := NewSourceTarget(targetmac, targetbuuid, targetos, client, cfg, source)
 	targets := []trg.SourceTarget{}
 	targets = append(targets, target)
 	return targets
