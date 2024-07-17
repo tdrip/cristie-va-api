@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
 
 	cfg "github.com/tdrip/apiclient/pkg/v1/cfg"
 	sess "github.com/tdrip/apiclient/pkg/v1/session"
@@ -19,6 +20,16 @@ const (
 	UriUsersAuthSession   = "v1/users/session"    // <-- 4.9.1+
 	UriUsersAuthSessionId = "v1/users/session_id" // <-- 4.8.3
 )
+
+func NewClient(server string, cl *http.Client, logger sess.SessionLog, dbg bool, dumpreq bool, dumpres bool) *cls.Client {
+	apis, _ := cfg.NewAPIServer(server, "")
+	aser, _ := cfg.NewAuthServer(server, UriUsersAuthPath)
+	crsclient := cls.NewClientCustomLogger(cl, apis, aser, logger)
+	crsclient.Session.Debug = dbg
+	crsclient.Session.DumpRequest = dumpreq
+	crsclient.Session.DumpResponse = dumpres
+	return crsclient
+}
 
 func New(server string, logger sess.SessionLog, dbg bool, dumpreq bool, dumpres bool) *cls.Client {
 	apis, _ := cfg.NewAPIServer(server, "")
