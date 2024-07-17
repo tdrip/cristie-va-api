@@ -28,3 +28,15 @@ type Block struct {
 	Status           int                    `json:"status"` // always required - string and INT?
 	Type             int                    `json:"type"`   // always required
 }
+
+func CreateTask() Block {
+	tsk := Block{}
+	tsk.Finished = nil
+	tsk.Reusable = false
+	tsk.RunReport = false
+	tsk.SelectedStage = nil
+	tsk.SourceTargetList = []targets.SourceTarget{}
+	tsk.Started = nil
+	tsk.Status = 0
+	return tsk
+}
