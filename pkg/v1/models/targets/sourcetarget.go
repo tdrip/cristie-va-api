@@ -12,20 +12,20 @@ import (
 )
 
 type SourceTarget struct {
-	BootDelay                 int                             `json:"bootDelay,omitempty"`
-	BootOrder                 int                             `json:"bootOrder,omitempty"`
-	CmLiteTarget              *CmLiteTarget                   `json:"cmLiteTarget,omitempty"`
-	DhwConfig                 *DhwConfiguration               `json:"dhwConfig,omitempty"`
+	BootDelay                 *int                            `json:"bootDelay"`    // null required
+	BootOrder                 *int                            `json:"bootOrder"`    // null required
+	CmLiteTarget              *CmLiteTarget                   `json:"cmLiteTarget"` // null required
+	DhwConfig                 *DhwConfiguration               `json:"dhwConfig"`    // null required
 	Dissimilar                bool                            `json:"dissimilar,omitempty"`
-	DnsEntryRequest           *networks.DnsEntryRequest       `json:"dnsEntryRequest,omitempty"`
-	DrNetworkBondingConfigs   []networks.DrNetworkBonding     `json:"drNetworkBondingConfigs,omitempty"`
-	DrNetworkConfig           []networks.NetworkInformation   `json:"drNetworkConfig,omitempty"`
+	DnsEntryRequest           *networks.DnsEntryRequest       `json:"dnsEntryRequest"`         // null required
+	DrNetworkBondingConfigs   []networks.DrNetworkBonding     `json:"drNetworkBondingConfigs"` // null required
+	DrNetworkConfig           []networks.NetworkInformation   `json:"drNetworkConfig"`         // null required
 	Enabled                   bool                            `json:"enabled,omitempty"`
 	EnhancedTestingConfig     *etesting.EnhancedTestingConfig `json:"enhancedTestingConfig,omitempty"`
 	Events                    []models.Event                  `json:"events,omitempty"`
-	Id                        int                             `json:"id,omitempty"`
+	Id                        *int                            `json:"id"` // null required
 	IsoTrigger                bool                            `json:"isoTrigger,omitempty"`
-	LastRunTime               time.Time                       `json:"lastRunTime,omitempty"`
+	LastRunTime               *time.Time                      `json:"lastRunTime"` // null required
 	OptType                   string                          `json:"optType,omitempty"`
 	OrchestrationBlockId      int                             `json:"orchestrationBlockId,omitempty"`
 	PauseForValidation        bool                            `json:"pauseForValidation,omitempty"`
@@ -43,17 +43,17 @@ type SourceTarget struct {
 	SourceMacAddress          string                          `json:"sourceMacAddress,omitempty"` //missing from swagger
 	SourceServer              string                          `json:"sourceServer,omitempty"`
 	Status                    string                          `json:"status,omitempty"`
-	StoragePools              []disks.StoragePool             `json:"storagePools,omitempty"`
-	Target                    *HypervisorTarget               `json:"target,omitempty"`
-	TargetBiosUuid            *string                         `json:"targetBiosUuid"`  // null required
+	StoragePools              []disks.StoragePool             `json:"storagePools"`   // null required
+	Target                    *HypervisorTarget               `json:"target"`         // null required
+	TargetBiosUuid            *string                         `json:"targetBiosUuid"` // null required
 	TargetConfig              *TargetConfig                   `json:"targetConfig,omitempty"`
 	TargetIP                  string                          `json:"targetIP,omitempty"`
 	TargetMAC                 *string                         `json:"targetMAC"` // null required
 	TargetVmCreated           bool                            `json:"targetVmCreated,omitempty"`
-	Type                      string                          `json:"type"`                     //missing from swagger
+	Type                      string                          `json:"type"` //missing from swagger
 	ValidationPauseDuration   int                             `json:"validationPauseDuration,omitempty"`
 	VmHostType                string                          `json:"vmHostType,omitempty"`
-	VpcConfig                 *VpcConfig                      `json:"vpcConfig,omitempty"`
+	VpcConfig                 *VpcConfig                      `json:"vpcConfig"` // null required
 	VpcEnabled                bool                            `json:"vpcEnabled,omitempty"`
-	WebbootMapping            *webboot.Mapping                `json:"webbootMapping,omitempty"`
+	WebbootMapping            *webboot.Mapping                `json:"webbootMapping"` // null required
 }
