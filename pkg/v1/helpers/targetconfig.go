@@ -5,13 +5,13 @@ import (
 	"strings"
 
 	"github.com/tdrip/cristie-va-api/pkg/v1/consts"
-	"github.com/tdrip/cristie-va-api/pkg/v1/models/backupservers"
-	"github.com/tdrip/cristie-va-api/pkg/v1/models/disks"
-	"github.com/tdrip/cristie-va-api/pkg/v1/models/targets"
+	bs "github.com/tdrip/cristie-va-api/pkg/v1/models/backupservers"
+	disks "github.com/tdrip/cristie-va-api/pkg/v1/models/disks"
+	trg "github.com/tdrip/cristie-va-api/pkg/v1/models/targets"
 )
 
-func NewTargetConfig(client backupservers.Client, cfg targets.VmConfiguration) targets.TargetConfig {
-	cnf := targets.TargetConfig{}
+func NewTargetConfig(client bs.Client, cfg trg.VmConfiguration) *trg.TargetConfig {
+	cnf := trg.TargetConfig{}
 	cnf.Id = 0
 	cnf.HardDisksInGB = []disks.DiskType{}
 	cnf.SkipMultipath = true
@@ -30,5 +30,5 @@ func NewTargetConfig(client backupservers.Client, cfg targets.VmConfiguration) t
 	cnf.RecoveryFailureAction = consts.Action_Leave
 	cnf.RecoverySuccessAction = consts.Action_Reboot
 	cnf.PostScriptCmd = nil
-	return cnf
+	return &cnf
 }

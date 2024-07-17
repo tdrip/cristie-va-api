@@ -2,19 +2,19 @@ package helpers
 
 import (
 	"github.com/tdrip/cristie-va-api/pkg/v1/consts"
-	"github.com/tdrip/cristie-va-api/pkg/v1/models/backupservers"
-	"github.com/tdrip/cristie-va-api/pkg/v1/models/targets"
+	bs "github.com/tdrip/cristie-va-api/pkg/v1/models/backupservers"
+	trg "github.com/tdrip/cristie-va-api/pkg/v1/models/targets"
 )
 
-func NewSourceTargets(targetmac string, targetbuuid string, targetos string, client backupservers.Client, cfg targets.VmConfiguration, source *targets.BackupSource) []targets.SourceTarget {
+func NewSourceTargets(targetmac string, targetbuuid string, targetos string, client bs.Client, cfg trg.VmConfiguration, source *trg.BackupSource) []trg.SourceTarget {
 	target := NewSourceTarget()
-	targets := []targets.SourceTarget{}
+	targets := []trg.SourceTarget{}
 	targets = append(targets, target)
 	return targets
 }
 
-func NewSourceTarget(targetmac string, targetbuuid string, targetos string, client backupservers.Client, cfg targets.VmConfiguration, source *targets.BackupSource) targets.SourceTarget {
-	target := targets.NewSourceTarget()
+func NewSourceTarget(targetmac string, targetbuuid string, targetos string, client bs.Client, cfg trg.VmConfiguration, source *trg.BackupSource) trg.SourceTarget {
+	target := trg.NewSourceTarget()
 	target.VmHostType = consts.SourceTarget_VMHostType_Standard
 	target.TargetConfig = NewTargetConfig(client, cfg)
 	target.SourceMacAddress = targetmac
