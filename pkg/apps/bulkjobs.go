@@ -69,7 +69,7 @@ func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logge
 			return err
 		}
 
-		for _, system := range machines {
+		for _, system := range machines.Machines {
 			_, err := estate.DeleteMachine(crs, system.Uuid)
 			if err != nil {
 				return err

@@ -18,8 +18,8 @@ const (
 	UriEstateMachine  = "v1/control/estate/machines/%s"
 )
 
-func GetMachines(crs *cls.Client) ([]est.System, error) {
-	result := []est.System{}
+func GetMachines(crs *cls.Client) (est.SystemsList, error) {
+	result := est.SystemsList{}
 	if !crs.Session.HasToken() {
 		return result, errors.New("get machines failed - token missing session")
 	}
@@ -34,8 +34,8 @@ func GetMachines(crs *cls.Client) ([]est.System, error) {
 	return result, fmt.Errorf("get machines failed - errors: %v %v %v", err, error_body, nerr)
 }
 
-func GetMachinesByMac(crs *cls.Client, macadd string) ([]est.System, error) {
-	result := []est.System{}
+func GetMachinesByMac(crs *cls.Client, macadd string) (est.SystemsList, error) {
+	result := est.SystemsList{}
 	if !crs.Session.HasToken() {
 		return result, errors.New("get machines by mac failed - token missing session")
 	}
