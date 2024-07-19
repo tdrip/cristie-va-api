@@ -16,7 +16,7 @@ const (
 )
 
 // Was told that orch returns events, this call does not
-func CreateStage(crs *cls.Client, name string, jobid int) ( orch.Stage, error) {
+func CreateStage(crs *cls.Client, name string, jobid int) (orch.Stage, error) {
 	result := orch.Stage{}
 	if !crs.Session.HasToken() {
 		return result, errors.New("stage creation failed - token missin session")
@@ -24,6 +24,23 @@ func CreateStage(crs *cls.Client, name string, jobid int) ( orch.Stage, error) {
 
 	request := orch.Stage{Name: name}
 	bytes, res, err := crs.Session.PostBody(fmt.Sprintf(UriRecoveryOrchestrationJobsStages, jobid), &request)
+
+	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
+		err = json.Unmarshal(bytes, &result)
+		return result, err
+	}
+	error_body, nerr := client.GetError(bytes)
+	return result, fmt.Errorf("stage creation failed - errors: %v %v %v", err, error_body, nerr)
+}
+
+// Was told that orch returns events, this call does not
+func GetStages(crs *cls.Client, jobid int) ([]orch.Stage, error) {
+	result := []orch.Stage{}
+	if !crs.Session.HasToken() {
+		return result, errors.New("stage creation failed - token missin session")
+	}
+
+	bytes, res, err := crs.Session.Get(fmt.Sprintf(UriRecoveryOrchestrationJobsStages, jobid))
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
 		err = json.Unmarshal(bytes, &result)
