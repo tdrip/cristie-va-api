@@ -20,7 +20,7 @@ import (
 
 const layout = "01-02-2006-15-04-05"
 
-func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logger sess.SessionLog, updateui UpdateUI, backuptype string, trg config.RecoveryTarget) error {
+func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logger sess.SessionLog, updateui UpdateUI, backuptype string, trg config.RecoveryTarget, pausetimeout int) error {
 	if updateui == nil {
 		updateui = DefaultUpdateUI
 	}
@@ -138,6 +138,10 @@ func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logge
 			task := helpers.CreateRecoveryTask(jobid, stg.Id, taskname)
 			task.SourceTargetList = helpers.NewSourceTargets(trg.MacAddress, trg.BiosUuid, trg.OS, fd, cfg, src)
 
+			if pausetimeout > 0 {
+				updateui(fmt.Sprintf("Adding %d seconds validation to task %s", pausetimeout, taskname))
+				task = helpers.AddValidationPauseToTargets(task, pausetimeout)
+			}
 			block, err := orcapi.CreateBlock(crs, task)
 			if err != nil {
 				return err
