@@ -18,11 +18,17 @@ func NewTargetConfig(client bs.Client, cfg trg.VmConfiguration) *trg.TargetConfi
 	cnf.DiskMapList = []string{}
 	cnf.ImportDHCP = false
 	//
-	cnf.Os = cfg.Os                      // "Windows X7"
-	cnf.Arch = strings.ToUpper(cfg.Arch) // WINDOWS <= expected  <= Windows from cfg
-	cnf.RamSizeInMB = cfg.RamSizeInMB    //2048
-	cnf.CpuCount = cfg.CpuCount          // 2
-	cnf.FirmwareOpt = cfg.EfiSys         // "BIOS"
+	cnf.Os = cfg.Os // "Windows X7"
+
+	arch := strings.ToUpper(cfg.Arch)
+	if arch == "AMD64" {
+		arch = "X64"
+	}
+
+	cnf.Arch = arch                   // WINDOWS <= expected  <= Windows from cfg
+	cnf.RamSizeInMB = cfg.RamSizeInMB //2048
+	cnf.CpuCount = cfg.CpuCount       // 2
+	cnf.FirmwareOpt = cfg.EfiSys      // "BIOS"
 	cnf.Hostname = client.Name
 	cnf.VmName = fmt.Sprintf("RS-%s", client.Name)
 	cnf.OriginalHostname = client.Name
