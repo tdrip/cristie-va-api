@@ -2,11 +2,11 @@ package helpers
 
 import (
 	"github.com/tdrip/cristie-va-api/pkg/v1/consts"
-	wb "github.com/tdrip/cristie-va-api/pkg/v1/models/webboot"
+	"github.com/tdrip/cristie-va-api/pkg/v1/models/targets"
 )
 
-func NewWebbootMapping(mac string, buuid string, os string, prodct string) *wb.Mapping {
-	wb := wb.Mapping{}
+func NewWebbootMapping(mac string, buuid string, os string, prodct string) *targets.WebbootMapping {
+	wb := targets.WebbootMapping{}
 	wb.Id = 0         // this will be omitted in JSON
 	wb.ConfigId = nil // this needs to be null in JSON
 
@@ -35,6 +35,6 @@ func NewWebbootMapping(mac string, buuid string, os string, prodct string) *wb.M
 	return &wb
 }
 
-func NewRubrikWebbootMapping(mac string, buuid string, os string) *wb.Mapping {
+func NewRubrikWebbootMapping(mac string, buuid string, os string) *targets.WebbootMapping {
 	return NewWebbootMapping(mac, buuid, os, consts.SourceTarget_Type_RBMR)
 }

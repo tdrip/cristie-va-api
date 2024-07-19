@@ -55,7 +55,7 @@ func CreateDHCPMapping(crs *cls.Client, product string, os string, mac string, b
 	request.Netmask = "DHCP"
 	request.Gateway = "DHCP"
 	// dns address might need to be a string ,
-	request.DnsAddrs = []string{}
+	request.DnsAddrs = ""
 	request.Os = os
 	request.Product = product
 	return CreateMapping(crs, request)
@@ -70,7 +70,9 @@ func CreateMapping(crs *cls.Client, request wb.Mapping) (wb.Mappings, error) {
 	bytes, res, err := crs.Session.PostBody(UriWebbootMap, &request)
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
-		err = json.Unmarshal(bytes, &result)
+		if len(bytes) > 0 {
+			err = json.Unmarshal(bytes, &result)
+		}
 		return result, err
 	}
 	error_body, nerr := client.GetError(bytes)

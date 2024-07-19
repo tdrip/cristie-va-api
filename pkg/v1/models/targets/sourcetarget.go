@@ -8,7 +8,6 @@ import (
 	etesting "github.com/tdrip/cristie-va-api/pkg/v1/models/etesting"
 	networks "github.com/tdrip/cristie-va-api/pkg/v1/models/networks"
 	recovery "github.com/tdrip/cristie-va-api/pkg/v1/models/recovery"
-	webboot "github.com/tdrip/cristie-va-api/pkg/v1/models/webboot"
 )
 
 type SourceTarget struct {
@@ -56,7 +55,7 @@ type SourceTarget struct {
 	VmHostType                 string                          `json:"vmHostType,omitempty"`
 	VpcConfig                  *VpcConfig                      `json:"vpcConfig"` // null required
 	VpcEnabled                 bool                            `json:"vpcEnabled,omitempty"`
-	WebbootMapping             *webboot.Mapping                `json:"webbootMapping"` // null required
+	WebbootMapping             *WebbootMapping                 `json:"webbootMapping"` // null required
 }
 
 func NewSourceTarget() SourceTarget {
