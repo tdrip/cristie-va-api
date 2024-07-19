@@ -14,8 +14,8 @@ import (
 )
 
 const (
-	UriEstateMachines = "v1/estate/machines"
-	UriEstateMachine  = "v1/estate/machines/%s"
+	UriEstateMachines = "v1/control/estate/machines"
+	UriEstateMachine  = "v1/control/estate/machines/%s"
 )
 
 func GetMachines(crs *cls.Client) ([]est.System, error) {
