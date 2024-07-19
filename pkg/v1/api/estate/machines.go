@@ -9,6 +9,7 @@ import (
 	cls "github.com/tdrip/apiclient/pkg/v1/client"
 	utils "github.com/tdrip/apiclient/pkg/v1/utils"
 	client "github.com/tdrip/cristie-va-api/pkg/v1/client"
+	models "github.com/tdrip/cristie-va-api/pkg/v1/models"
 	est "github.com/tdrip/cristie-va-api/pkg/v1/models/estate"
 )
 
@@ -56,14 +57,14 @@ func GetMachinesByMac(crs *cls.Client, macadd string) ([]est.System, error) {
 	return result, fmt.Errorf("get machine by mac failed - errors: %v %v %v", err, error_body, nerr)
 }
 
-func DeleteMachine(crs *cls.Client, uuid string) ([]est.System, error) {
-	result := []est.System{}
+func DeleteMachine(crs *cls.Client, uuid string) (models.Event, error) {
+	result := models.Event{}
 	if !crs.Session.HasToken() {
-		return result, errors.New("get machine by mac failed - token missing session")
+		return result, errors.New("delete machine failed - token missing session")
 	}
 
 	if len(uuid) == 0 {
-		return result, errors.New("get machine by mac failed - no mac provided")
+		return result, errors.New("delete machine failed - no mac provided")
 	}
 
 	bytes, res, err := crs.Session.Delete(fmt.Sprintf(UriEstateMachine, uuid))
@@ -73,5 +74,5 @@ func DeleteMachine(crs *cls.Client, uuid string) ([]est.System, error) {
 		return result, err
 	}
 	error_body, nerr := client.GetError(bytes)
-	return result, fmt.Errorf("get machine by mac failed - errors: %v %v %v", err, error_body, nerr)
+	return result, fmt.Errorf("delete machine failed - errors: %v %v %v", err, error_body, nerr)
 }
