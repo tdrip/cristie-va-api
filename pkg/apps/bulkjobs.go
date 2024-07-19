@@ -10,6 +10,7 @@ import (
 	sess "github.com/tdrip/apiclient/pkg/v1/session"
 	config "github.com/tdrip/cristie-va-api/pkg/config"
 	bsapi "github.com/tdrip/cristie-va-api/pkg/v1/api/backupservers"
+	"github.com/tdrip/cristie-va-api/pkg/v1/api/estate"
 	orcapi "github.com/tdrip/cristie-va-api/pkg/v1/api/orchestration"
 	client "github.com/tdrip/cristie-va-api/pkg/v1/client"
 	helpers "github.com/tdrip/cristie-va-api/pkg/v1/helpers"
@@ -60,6 +61,21 @@ func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logge
 
 	earliest := time.Date(2009, 11, 17, 20, 34, 58, 651387237, time.UTC)
 	latestpit := bs.Pit{Date: earliest}
+
+	// better clear the estate
+	if len(fulldetails) > 0 {
+		machines, err := estate.GetMachinesByMac(crs, trg.MacAddress)
+		if err != nil {
+			return err
+		}
+
+		for _, system := range machines {
+			_, err := estate.DeleteMachine(crs, system.Uuid)
+			if err != nil {
+				return err
+			}
+		}
+	}
 
 	for _, fd := range fulldetails {
 
