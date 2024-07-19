@@ -55,11 +55,18 @@ func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logge
 
 	fulldetails := []bs.Client{}
 	for _, client := range res {
-		res, err := bsapi.GetClientDetails(crs, int(client.Id))
-		if err != nil {
-			return err
+		if strings.EqualFold(trg.Hostname, client.Name) {
+			res, err := bsapi.GetClientDetails(crs, int(client.Id))
+			if err != nil {
+				return err
+			}
+			fulldetails = append(fulldetails, res)
+			if strings.EqualFold(trg.OS, client.Platform) {
+				updateui(fmt.Sprintf("platform %s matched target %s ", client.Platform, trg.OS))
+			} else {
+				updateui(fmt.Sprintf("platform %s does not target %s ", client.Platform, trg.OS))
+			}
 		}
-		fulldetails = append(fulldetails, res)
 	}
 
 	earliest := time.Date(2009, 11, 17, 20, 34, 58, 651387237, time.UTC)
@@ -138,7 +145,7 @@ func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logge
 			task := helpers.CreateRecoveryTask(jobid, stg.Id, taskname)
 			task.SourceTargetList = helpers.NewSourceTargets(trg.MacAddress, trg.BiosUuid, trg.OS, fd, cfg, src)
 
-			if pausetimeout > 0 {
+			if pausetimeout >= 0 {
 				updateui(fmt.Sprintf("Adding %d seconds validation to task %s", pausetimeout, taskname))
 				task = helpers.AddValidationPauseToTargets(task, pausetimeout)
 			}
