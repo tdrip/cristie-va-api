@@ -1,2 +1,4 @@
 github.com/tdrip/apiclient v0.0.12 h1:QMfA8A5wdk5Gew80rhoFTkRNk/pdWE2pHUBIyGlTnWU=
 github.com/tdrip/apiclient v0.0.12/go.mod h1:bgFTcRpDDkY6YAhCG8VGWoV7qqiTcNIBspjnICp37Es=
+github.com/tdrip/apiclient v0.0.13 h1:YzkmTHoN7HpdimZs71VrVUWbpXSXOYkiDYUZkViSMU8=
+github.com/tdrip/apiclient v0.0.13/go.mod h1:bgFTcRpDDkY6YAhCG8VGWoV7qqiTcNIBspjnICp37Es=
