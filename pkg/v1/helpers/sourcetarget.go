@@ -34,3 +34,9 @@ func NewSourceTarget(targetmac string, targetbuuid string, targetos string, clie
 	target.WebbootMapping = NewRubrikWebbootMapping(targetmac, targetbuuid, targetos)
 	return target
 }
+
+func AddValidationPause(target trg.SourceTarget, timeout int)) trg.SourceTarget {
+	target.PauseForValidation = true
+	target.ValidationPauseDuration = timeout
+	return target
+}
