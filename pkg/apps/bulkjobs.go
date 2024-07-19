@@ -104,6 +104,7 @@ func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logge
 				if err == nil {
 					updateui(fmt.Sprintf("On attempt %d of %d got configuration for machine %s", i, tries, fd.Name))
 					cfg = cfg1
+					break
 				}
 			}
 
