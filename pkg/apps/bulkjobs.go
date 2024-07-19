@@ -20,7 +20,11 @@ import (
 
 const layout = "01-02-2006-15-04-05"
 
-func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logger sess.SessionLog, backuptype string, trg config.RecoveryTarget) error {
+func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logger sess.SessionLog, updateui UpdateUI, backuptype string, trg config.RecoveryTarget) error {
+	if updateui == nil {
+		updateui = DefaultUpdateUI
+	}
+
 	crs := client.NewClient(cnt.Server, clint, logger, cnt.Debug, cnt.DumpRequest, cnt.DumpResponses)
 
 	err := client.Login(crs, cnt.User, cnt.PWord)
@@ -38,7 +42,6 @@ func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logge
 		if strings.EqualFold(v.Type, backuptype) {
 			backupserverid = v.Id
 		}
-
 	}
 
 	if backupserverid < 0 {
@@ -69,7 +72,10 @@ func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logge
 			return err
 		}
 
+		updateui(fmt.Sprintf("Found %d machines matching %s", len(machines.Machines), trg.MacAddress))
+
 		for _, system := range machines.Machines {
+			updateui(fmt.Sprintf("Deleting machine %s", system.Uuid))
 			_, err := estate.DeleteMachine(crs, system.Uuid)
 			if err != nil {
 				return err
@@ -83,7 +89,6 @@ func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logge
 			if pit.Date.After(latestpit.Date) {
 				latestpit = pit
 			}
-
 		}
 
 		if latestpit.Date.After(earliest) {
@@ -93,38 +98,58 @@ func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logge
 			for i := 0; i < tries; i++ {
 				cfg1, err := bsapi.GetConfigDetails(crs, backupserverid, fd.Name, latestpit.Type)
 				if err != nil && i == tries {
+					updateui(fmt.Sprintf("Tried %d times to get configuration for machine %s returning error", tries, fd.Name))
 					return err
 				}
 				if err == nil {
+					updateui(fmt.Sprintf("On attempt %d of %d got configuration for machine %s", i, tries, fd.Name))
 					cfg = cfg1
 				}
 			}
 
 			t := time.Now()
 			jobname := fmt.Sprintf("%s-%s", fd.Name, t.Format(layout))
-			job, err := orcapi.CreateJob(crs, jobname)
+
+			updateui(fmt.Sprintf("Creating job with name %s", jobname))
+			jobevent, err := orcapi.CreateJob(crs, jobname)
 			if err != nil {
 				return err
 			}
-			stgname := fmt.Sprintf("stg-%s-%s", fd.Name, t.Format(layout))
-			jobid, _ := strconv.Atoi(job.ScheduleReference)
+			jobid, _ := strconv.Atoi(jobevent.ScheduleReference)
 
+			updateui(fmt.Sprintf("Created job %s with id %d", jobname, jobid))
+
+			stgname := fmt.Sprintf("stg-%s-%s", fd.Name, t.Format(layout))
+
+			updateui(fmt.Sprintf("Creating stage with name %s", stgname))
 			stg, err := orcapi.CreateStage(crs, stgname, jobid)
 			if err != nil {
 				return err
 			}
 
+			updateui(fmt.Sprintf("Created stage %s with id %d", stgname, stg.Id))
+
 			src := helpers.NewRubrikSource(fd, latestpit, backupserverid)
-			task := helpers.CreateRecoveryTask(jobid, stg.Id, fmt.Sprintf("blk-%s-%s", fd.Name, t.Format(layout)))
+			taskname := fmt.Sprintf("blk-%s-%s", fd.Name, t.Format(layout))
+
+			updateui(fmt.Sprintf("Creating task with name %s", taskname))
+
+			task := helpers.CreateRecoveryTask(jobid, stg.Id, taskname)
 			task.SourceTargetList = helpers.NewSourceTargets(trg.MacAddress, trg.BiosUuid, trg.OS, fd, cfg, src)
 
-			_, err = orcapi.CreateBlock(crs, task)
+			block, err := orcapi.CreateBlock(crs, task)
 			if err != nil {
 				return err
 			}
+			updateui(fmt.Sprintf("Created task %s with id %d", taskname, block.Id))
+			updateui(fmt.Sprintf("Running job with id %d", jobid))
 
 			_, err = orcapi.RunJob(crs, jobid, -1, -1)
-			return err
+			if err != nil {
+				return err
+			}
+			updateui(fmt.Sprintf("Sucessfully running job with id %d", jobid))
+			return nil
 		}
 
 	}
