@@ -27,7 +27,9 @@ func GetMachines(crs *cls.Client) (est.SystemsList, error) {
 	bytes, res, err := crs.Session.Get(UriEstateMachines)
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
-		err = json.Unmarshal(bytes, &result)
+		if len(bytes) > 0 {
+			err = json.Unmarshal(bytes, &result)
+		}
 		return result, err
 	}
 	error_body, nerr := client.GetError(bytes)
@@ -50,7 +52,9 @@ func GetMachinesByMac(crs *cls.Client, macadd string) (est.SystemsList, error) {
 	bytes, res, err := crs.Session.Get(fmt.Sprintf("%s?%s", UriEstateMachines, params.Encode()))
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
-		err = json.Unmarshal(bytes, &result)
+		if len(bytes) > 0 {
+			err = json.Unmarshal(bytes, &result)
+		}
 		return result, err
 	}
 	error_body, nerr := client.GetError(bytes)
@@ -70,7 +74,9 @@ func DeleteMachine(crs *cls.Client, uuid string) (models.Event, error) {
 	bytes, res, err := crs.Session.Delete(fmt.Sprintf(UriEstateMachine, url.QueryEscape(uuid)))
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
-		err = json.Unmarshal(bytes, &result)
+		if len(bytes) > 0 {
+			err = json.Unmarshal(bytes, &result)
+		}
 		return result, err
 	}
 	error_body, nerr := client.GetError(bytes)

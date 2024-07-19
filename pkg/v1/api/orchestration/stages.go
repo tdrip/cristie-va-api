@@ -26,7 +26,9 @@ func CreateStage(crs *cls.Client, name string, jobid int) (orch.Stage, error) {
 	bytes, res, err := crs.Session.PostBody(fmt.Sprintf(UriRecoveryOrchestrationJobsStages, jobid), &request)
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
-		err = json.Unmarshal(bytes, &result)
+		if len(bytes) > 0 {
+			err = json.Unmarshal(bytes, &result)
+		}
 		return result, err
 	}
 	error_body, nerr := client.GetError(bytes)
@@ -43,7 +45,9 @@ func GetStages(crs *cls.Client, jobid int) ([]orch.Stage, error) {
 	bytes, res, err := crs.Session.Get(fmt.Sprintf(UriRecoveryOrchestrationJobsStages, jobid))
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
-		err = json.Unmarshal(bytes, &result)
+		if len(bytes) > 0 {
+			err = json.Unmarshal(bytes, &result)
+		}
 		return result, err
 	}
 	error_body, nerr := client.GetError(bytes)

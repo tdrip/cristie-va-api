@@ -32,7 +32,9 @@ func CreateJob(crs *cls.Client, name string) (models.Event, error) {
 	bytes, res, err := crs.Session.PostBody(UriRecoveryOrchestration, &request)
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
-		err = json.Unmarshal(bytes, &result)
+		if len(bytes) > 0 {
+			err = json.Unmarshal(bytes, &result)
+		}
 		return result, err
 	}
 	error_body, nerr := client.GetError(bytes)
@@ -48,7 +50,9 @@ func GetJobs(crs *cls.Client) ([]orch.Job, error) {
 	bytes, res, err := crs.Session.PostBody(UriRecoveryOrchestrationJob, nil)
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
-		err = json.Unmarshal(bytes, &result)
+		if len(bytes) > 0 {
+			err = json.Unmarshal(bytes, &result)
+		}
 		return result, err
 	}
 	error_body, nerr := client.GetError(bytes)
@@ -64,7 +68,9 @@ func GetJob(crs *cls.Client, jobid int) (orch.Job, error) {
 	bytes, res, err := crs.Session.PostBody(fmt.Sprintf(UriRecoveryOrchestrationJob, jobid), nil)
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
-		err = json.Unmarshal(bytes, &result)
+		if len(bytes) > 0 {
+			err = json.Unmarshal(bytes, &result)
+		}
 		return result, err
 	}
 	error_body, nerr := client.GetError(bytes)
@@ -93,7 +99,9 @@ func RunJob(crs *cls.Client, jobid int, stagid int, blockid int) (models.Event, 
 	bytes, res, err := crs.Session.PostBody(uri, nil)
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
-		err = json.Unmarshal(bytes, &result)
+		if len(bytes) > 0 {
+			err = json.Unmarshal(bytes, &result)
+		}
 		return result, err
 	}
 	error_body, nerr := client.GetError(bytes)

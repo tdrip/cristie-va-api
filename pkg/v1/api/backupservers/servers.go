@@ -24,7 +24,9 @@ func GetServers(crs *cls.Client) (bs.BackupServers, error) {
 	bytes, res, err := crs.Session.Get(UriBackupServers)
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
-		err = json.Unmarshal(bytes, &results)
+		if len(bytes) > 0 {
+			err = json.Unmarshal(bytes, &results)
+		}
 		return results, err
 	}
 	error_body, nerr := client.GetError(bytes)

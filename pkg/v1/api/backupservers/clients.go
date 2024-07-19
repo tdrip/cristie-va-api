@@ -25,7 +25,9 @@ func GetClients(crs *cls.Client, backupid int) ([]bs.Client, error) {
 	bytes, res, err := crs.Session.Get(fmt.Sprintf(UriBackupServersClients, backupid))
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
-		err = json.Unmarshal(bytes, &results)
+		if len(bytes) > 0 {
+			err = json.Unmarshal(bytes, &results)
+		}
 		return results, err
 	}
 	error_body, nerr := client.GetError(bytes)
@@ -41,7 +43,9 @@ func GetClientDetails(crs *cls.Client, clientid int) (bs.Client, error) {
 	bytes, res, err := crs.Session.Get(fmt.Sprintf(UriBackupServersClient, clientid))
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
-		err = json.Unmarshal(bytes, &result)
+		if len(bytes) > 0 {
+			err = json.Unmarshal(bytes, &result)
+		}
 		return result, err
 	}
 	error_body, nerr := client.GetError(bytes)
