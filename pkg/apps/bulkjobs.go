@@ -10,7 +10,7 @@ import (
 	sess "github.com/tdrip/apiclient/pkg/v1/session"
 	config "github.com/tdrip/cristie-va-api/pkg/config"
 	bsapi "github.com/tdrip/cristie-va-api/pkg/v1/api/backupservers"
-	"github.com/tdrip/cristie-va-api/pkg/v1/api/estate"
+	estate "github.com/tdrip/cristie-va-api/pkg/v1/api/estate"
 	orcapi "github.com/tdrip/cristie-va-api/pkg/v1/api/orchestration"
 	client "github.com/tdrip/cristie-va-api/pkg/v1/client"
 	helpers "github.com/tdrip/cristie-va-api/pkg/v1/helpers"
@@ -141,6 +141,9 @@ func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logge
 			taskname := fmt.Sprintf("blk-%s-%s", fd.Name, t.Format(layout))
 
 			updateui(fmt.Sprintf("Creating task with name %s", taskname))
+			if len(trg.OS) == 0 {
+				trg.OS = fd.Platform
+			}
 
 			task := helpers.CreateRecoveryTask(jobid, stg.Id, taskname)
 			task.SourceTargetList = helpers.NewSourceTargets(trg.MacAddress, trg.BiosUuid, trg.OS, fd, cfg, src)
