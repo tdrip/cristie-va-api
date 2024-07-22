@@ -18,11 +18,13 @@ import (
 	targets "github.com/tdrip/cristie-va-api/pkg/v1/models/targets"
 )
 
-const layout = "01-02-2006-15-04-05"
-
-func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logger sess.SessionLog, updateui UpdateUI, backuptype string, trg config.RecoveryTarget, pausetimeout int, startjob bool) error {
+func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logger sess.SessionLog, updateui UpdateUI, naming NamingConvention, backuptype string, trg config.RecoveryTarget, pausetimeout int, startjob bool) error {
 	if updateui == nil {
 		updateui = DefaultUpdateUI
+	}
+
+	if naming == nil {
+		naming = DefaultNamingConvention
 	}
 
 	crs := client.NewClient(cnt.Server, clint, logger, cnt.Debug, cnt.DumpRequest, cnt.DumpResponses)
@@ -121,7 +123,7 @@ func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logge
 			}
 
 			t := time.Now()
-			jobname := fmt.Sprintf("%s-%s", fd.Name, t.Format(layout))
+			jobname := naming("job-", fd, t)
 
 			updateui(fmt.Sprintf("Creating job with name %s", jobname))
 			jobevent, err := orcapi.CreateJob(crs, jobname)
@@ -132,7 +134,7 @@ func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logge
 
 			updateui(fmt.Sprintf("Created job %s with id %d", jobname, jobid))
 
-			stgname := fmt.Sprintf("stg-%s-%s", fd.Name, t.Format(layout))
+			stgname := naming("stg-", fd, t)
 
 			updateui(fmt.Sprintf("Creating stage with name %s", stgname))
 			stg, err := orcapi.CreateStage(crs, stgname, jobid)
@@ -143,7 +145,7 @@ func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logge
 			updateui(fmt.Sprintf("Created stage %s with id %d", stgname, stg.Id))
 
 			src := helpers.NewRubrikSource(fd, latestpit, backupserverid)
-			taskname := fmt.Sprintf("blk-%s-%s", fd.Name, t.Format(layout))
+			taskname := naming("blk-", fd, t)
 
 			updateui(fmt.Sprintf("Creating task with name %s", taskname))
 			if len(trg.OS) == 0 {
@@ -164,7 +166,6 @@ func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logge
 			updateui(fmt.Sprintf("Created task %s with id %d", taskname, block.Id))
 
 			if startjob {
-
 				updateui(fmt.Sprintf("Running job with id %d", jobid))
 
 				_, err = orcapi.RunJob(crs, jobid, -1, -1)
