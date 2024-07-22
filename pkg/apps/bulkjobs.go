@@ -20,7 +20,7 @@ import (
 
 const layout = "01-02-2006-15-04-05"
 
-func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logger sess.SessionLog, updateui UpdateUI, backuptype string, trg config.RecoveryTarget, pausetimeout int) error {
+func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logger sess.SessionLog, updateui UpdateUI, backuptype string, trg config.RecoveryTarget, pausetimeout int, startjob bool) error {
 	if updateui == nil {
 		updateui = DefaultUpdateUI
 	}
@@ -157,13 +157,18 @@ func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logge
 				return err
 			}
 			updateui(fmt.Sprintf("Created task %s with id %d", taskname, block.Id))
-			updateui(fmt.Sprintf("Running job with id %d", jobid))
 
-			_, err = orcapi.RunJob(crs, jobid, -1, -1)
-			if err != nil {
-				return err
+			if startjob {
+
+				updateui(fmt.Sprintf("Running job with id %d", jobid))
+
+				_, err = orcapi.RunJob(crs, jobid, -1, -1)
+				if err != nil {
+					return err
+				}
+				updateui(fmt.Sprintf("Sucessfully running job with id %d", jobid))
 			}
-			updateui(fmt.Sprintf("Sucessfully running job with id %d", jobid))
+
 			return nil
 		}
 
