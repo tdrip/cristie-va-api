@@ -61,10 +61,15 @@ func RubrikRecoveryJobCreator(clint *http.Client, cnt config.VAConnection, logge
 				return err
 			}
 			fulldetails = append(fulldetails, res)
-			if strings.EqualFold(trg.OS, client.Platform) {
-				updateui(fmt.Sprintf("platform %s matched target %s ", client.Platform, trg.OS))
+			if len(trg.OS) == 0 {
+				updateui(fmt.Sprintf("target is empty - setting platform to: %s", client.Platform))
+				trg.OS = res.Platform
 			} else {
-				updateui(fmt.Sprintf("platform %s does not target %s ", client.Platform, trg.OS))
+				if strings.EqualFold(trg.OS, client.Platform) {
+					updateui(fmt.Sprintf("platform %s matched target %s ", client.Platform, trg.OS))
+				} else {
+					updateui(fmt.Sprintf("platform %s does not target %s ", client.Platform, trg.OS))
+				}
 			}
 		}
 	}
