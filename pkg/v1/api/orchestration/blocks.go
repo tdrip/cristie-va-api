@@ -16,7 +16,7 @@ const (
 	UriRecoveryOrchestrationJobsStagesBlocks = "v1/recovery/orchestration/jobs/%d/stages/%d/blocks"
 )
 
-func CreateBlock(crs *cls.Client, request orch.Block) (models.Event, error) {
+func CreateBlock(crs *cls.Client, request orch.CBlock) (models.Event, error) {
 	result := models.Event{}
 	if !crs.Session.HasToken() {
 		return result, errors.New("task creation failed - token missin session")

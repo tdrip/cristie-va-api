@@ -6,8 +6,8 @@ import (
 	trg "github.com/tdrip/cristie-va-api/pkg/v1/models/targets"
 )
 
-func CreateTask(jobid int, stagid int, name string, ttype int) orchestration.Block {
-	task := orchestration.Block{}
+func CreateTask(jobid int, stagid int, name string, ttype int) orchestration.CBlock {
+	task := orchestration.CBlock{}
 	task.Name = name
 	task.Type = ttype
 	task.JobId = jobid
@@ -15,11 +15,11 @@ func CreateTask(jobid int, stagid int, name string, ttype int) orchestration.Blo
 	return task
 }
 
-func CreateRecoveryTask(jobid int, stagid int, name string) orchestration.Block {
+func CreateRecoveryTask(jobid int, stagid int, name string) orchestration.CBlock {
 	return CreateTask(jobid, stagid, name, consts.TaskType_Recovery)
 }
 
-func AddValidationPauseToTargets(task orchestration.Block, timeout int) orchestration.Block {
+func AddValidationPauseToTargets(task orchestration.CBlock, timeout int) orchestration.CBlock {
 	stargets := []trg.SourceTarget{}
 	for _, v := range task.SourceTargetList {
 		v1 := AddValidationPause(v, timeout)

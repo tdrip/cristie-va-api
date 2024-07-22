@@ -25,12 +25,22 @@ type Block struct {
 	SourceTargetList []targets.SourceTarget `json:"sourceTargetList,omitempty"`
 	StageId          int                    `json:"stageId,omitempty"`
 	Started          *time.Time             `json:"started,omitempty"`
-	Status           int                    `json:"status"` // always required - string and INT?
-	Type             int                    `json:"type"`   // always required
 }
 
-func CreateTask() Block {
-	tsk := Block{}
+type CBlock struct {
+	Block
+	Status int `json:"status"` // always required - string and INT?
+	Type   int `json:"type"`   // always required
+}
+
+type RBlock struct {
+	Block
+	Status string `json:"status"` // always required - string and INT?
+	Type   string `json:"type"`   // always required
+}
+
+func CreateTask() CBlock {
+	tsk := CBlock{}
 	tsk.Finished = nil
 	tsk.Reusable = false
 	tsk.RunReport = false
