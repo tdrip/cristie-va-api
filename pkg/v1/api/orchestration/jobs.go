@@ -47,7 +47,7 @@ func GetJobs(crs *cls.Client) ([]orch.Job, error) {
 		return result, errors.New("get jobs failed - token missin session")
 	}
 
-	bytes, res, err := crs.Session.PostBody(UriRecoveryOrchestrationJob, nil)
+	bytes, res, err := crs.Session.Get(UriRecoveryOrchestrationJobs)
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
 		if len(bytes) > 0 {
@@ -65,7 +65,7 @@ func GetJob(crs *cls.Client, jobid int) (orch.Job, error) {
 		return result, errors.New("get job failed - token missin session")
 	}
 
-	bytes, res, err := crs.Session.PostBody(fmt.Sprintf(UriRecoveryOrchestrationJob, jobid), nil)
+	bytes, res, err := crs.Session.Get(fmt.Sprintf(UriRecoveryOrchestrationJob, jobid))
 
 	if err == nil && res != nil && utils.RequestIsSuccessful(res.StatusCode) {
 		if len(bytes) > 0 {
