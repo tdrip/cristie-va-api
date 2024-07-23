@@ -21,3 +21,5 @@
 go.work
 go.work.sum
 *.DS_Store
+cmd/job-creator/main
+cmd/job-creator/main.exe
