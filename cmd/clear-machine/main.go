@@ -28,7 +28,7 @@ func main() {
 	}
 
 	if len(targetmacaddress) > 0 {
-		targetmacaddress = strings.ToLower(targetmacaddress)
+		targetmacaddress = strings.ToUpper(targetmacaddress)
 	}
 
 	vaserver := *(s)

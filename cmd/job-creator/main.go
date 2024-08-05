@@ -40,11 +40,11 @@ func main() {
 	}
 
 	if len(targetbuuid) > 0 {
-		targetbuuid = strings.ToLower(targetbuuid)
+		targetbuuid = strings.ToUpper(targetbuuid)
 	}
 
 	if len(targetmacaddress) > 0 {
-		targetmacaddress = strings.ToLower(targetmacaddress)
+		targetmacaddress = strings.ToUpper(targetmacaddress)
 	}
 
 	vaserver := *(s)
