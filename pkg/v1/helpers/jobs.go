@@ -174,7 +174,7 @@ func CreateJob(crs *client.Client, updateui UpdateUI, naming NamingConvention, b
 			}
 
 			task := CreateRecoveryTask(jobid, stg.Id, taskname)
-			task.SourceTargetList = NewSourceTargets(trg.MacAddress, trg.BiosUuid, trg.OS, fd, cfg, src)
+			task.SourceTargetList = NewSourceTargets(trg.MacAddress, trg.BiosUuid, trg.OS, NewTargetConfig(fd, cfg), src)
 
 			if pausetimeout >= 0 {
 				updateui(fmt.Sprintf("Adding %d seconds validation to task %s", pausetimeout, taskname))
@@ -203,3 +203,4 @@ func CreateJob(crs *client.Client, updateui UpdateUI, naming NamingConvention, b
 
 	return nil
 }
+n
